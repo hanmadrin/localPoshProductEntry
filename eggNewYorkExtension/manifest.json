@@ -22,7 +22,7 @@
     "content_scripts":[
         {
             "matches": [
-                "https://www.eggnewyork.com/*",
+                "https://kiddingaroundtoys.com/*",
                 "https://localposh.com/*"
             ],
             "js": ["script.js"],

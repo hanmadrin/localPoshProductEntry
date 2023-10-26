@@ -3511,16 +3511,59 @@ const simulateTextEntry = (inputElement,text)=>{
     inputElement.dispatchEvent(change);
     
 }
+// const url = 
+const isLocalPosh = (()=>{
+    return (window.location.href.includes('https://kiddingaroundtoys.com/'))
+})();
+const capitalizeFirstLetters = (sentence)=>{
+    // Split the sentence into words
+    const words = sentence.split(' ');
+  
+    // Capitalize the first letter of each word
+    const capitalizedWords = words.map(word => {
+      if (word.length > 0) {
+        return word[0].toUpperCase() + word.slice(1);
+      } else {
+        return word;
+      }
+    });
+  
+    // Join the words back into a sentence
+    return capitalizedWords.join(' ');
+  }
+const getSelectedText = ()=>{
+    if (window.getSelection) {
+      return window.getSelection().toString();
+    } else if (document.selection && document.selection.type !== 'Control') {
+      return document.selection.createRange().text;
+    }
+    return '';
+}
+document.addEventListener("mouseup", async (event)=>{
+    if(isLocalPosh){
+        const selectedText = getSelectedText();
+        if(selectedText!='' && selectedText.length!=0){
+            const text = capitalizeFirstLetters(selectedText);
+            console.log(text);
+            const db = new ChromeStorage('db');
+            const data = await db.GET();
+            if(!data.sizes){
+                data.sizes = [text];
+                await db.SET(data)
+            }
+        }
+    }
+});
+
 const contentSetup = async()=>{
     // const accountInfo = await contentScripts.accountInfo();
     // console.log(accountInfo);
+
     const db = new ChromeStorage('db');
     console.log((await db.GET()))
     contentScripts.setupConsoleBoard();
 
-    const isLocalPosh = (()=>{
-        return (window.location.href.includes('https://www.eggnewyork.com/'))
-    })();
+    
     if(isLocalPosh){
         contentScripts.showDebugButton('downloadCurrent',async()=>{
             const key = (await db.GET()).key;

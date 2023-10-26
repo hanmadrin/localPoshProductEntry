@@ -77,7 +77,7 @@ const htmlToPlainText =(htmlText)=>{
     return plainText.replace(/\n/g, ' ').trim();
 }
 const downLoadItem =async(key)=>{
-    const fetchingUrl = `https://www.eggnewyork.com/products/${key.split('/')[4]}.js`;
+    const fetchingUrl = `https://kiddingaroundtoys.com//products/${key.split('/')[4]}.js`;
     const response = (await axios.get(fetchingUrl)).data;
     const data = {};
     data.key = key;
@@ -119,7 +119,7 @@ app.get('/nextItem', async (req, res) => {
     const key = Object.keys(allLists)[0];
     console.log(key)
     res.json({
-        url: `https://www.eggnewyork.com${key}`,
+        url: `https://kiddingaroundtoys.com${key}`,
         key
     });
 
