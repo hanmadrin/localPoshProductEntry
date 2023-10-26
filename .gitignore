@@ -44,7 +44,7 @@ node_modules/
 jspm_packages/
 images/
 
-allLists.json
+eggNewWorkTOLocalPoshServer/allLists.json
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
