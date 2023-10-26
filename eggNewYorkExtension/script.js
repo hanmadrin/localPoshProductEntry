@@ -3547,10 +3547,10 @@ document.addEventListener("mouseup", async (event)=>{
             console.log(text);
             const db = new ChromeStorage('db');
             const data = await db.GET();
-            if(!data.sizes){
+            // if(data.sizes){
                 data.sizes = [text];
                 await db.SET(data)
-            }
+            // }
         }
     }
 });
