@@ -3563,7 +3563,9 @@ const contentSetup = async()=>{
     const initialdb = await db.GET();
     console.log(initialdb);
     contentScripts.setupConsoleBoard();
-    contentScripts.showWorkingStep(`${initialdb.position}`)
+    try{
+        contentScripts.showWorkingStep(`${initialdb.position}`)
+    }catch(e){}
     
     if(isLocalPosh){
         contentScripts.showDebugButton('downloadCurrent',async()=>{
@@ -3606,7 +3608,7 @@ const contentSetup = async()=>{
             // simulateTextEntry(description,data.description);
             simulateTextEntry(description,"");
 
-            
+
             const descriptionGenrator = document.querySelector('[class^="AddNewProduct_generateDecriptionBtn_"]');
             descriptionGenrator.click()
     
