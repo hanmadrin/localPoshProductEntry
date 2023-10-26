@@ -90,7 +90,7 @@ const downLoadItem =async(key)=>{
         data.price = `${(response.price/ 100).toFixed(2)}`;
         data.discounted_price = null;
     }
-    data.description = htmlToPlainText(response.description);
+    // data.description = htmlToPlainText(response.description);
     const sizeOption = response.options.find(option => option.name === "Size" || option.name === "SIZE");
     data.sizes = sizeOption ? sizeOption.values : null;
     
