@@ -499,12 +499,13 @@
     },
     "/collections/cars-and-trucks/products/lift-load-warehouse-set": {
         "status": "new"
-    },
+    }, 
     "/collections/cars-and-trucks/products/mack-dump-truck": {
         "status": "new"
     }, 
     "/collections/cars-and-trucks/products/matchbox": {
-        "status": "new"
+        "status": "new",
+        "aa":"aa"
     },
     "/collections/cars-and-trucks/products/mini-straight-tracks": {
         "status": "new"

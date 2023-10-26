@@ -42,9 +42,9 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
-images/
 
-eggNewWorkTOLocalPoshServer/allLists.json
+eggNewWorkTOLocalPoshServer/images/
+./eggNewWorkTOLocalPoshServer/allLists.json
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
