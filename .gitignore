@@ -7,6 +7,7 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -42,6 +43,8 @@ build/Release
 node_modules/
 jspm_packages/
 images/
+
+allLists.json
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
