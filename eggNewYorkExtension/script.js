@@ -3560,9 +3560,10 @@ const contentSetup = async()=>{
     // console.log(accountInfo);
 
     const db = new ChromeStorage('db');
-    console.log((await db.GET()))
+    const initialdb = await db.GET();
+    console.log(initialdb);
     contentScripts.setupConsoleBoard();
-
+    contentScripts.showWorkingStep(`${initialdb.position}`)
     
     if(isLocalPosh){
         contentScripts.showDebugButton('downloadCurrent',async()=>{
@@ -3602,8 +3603,12 @@ const contentSetup = async()=>{
             simulateTextEntry(title,data.title);
 
             const description = document.querySelector('#description:not([placeholder])')
-            simulateTextEntry(description,data.description);
+            // simulateTextEntry(description,data.description);
+            simulateTextEntry(description,"");
 
+            
+            const descriptionGenrator = document.querySelector('[class^="AddNewProduct_generateDecriptionBtn_"]');
+            descriptionGenrator.click()
     
         });
         contentScripts.showDebugButton('variations',async()=>{

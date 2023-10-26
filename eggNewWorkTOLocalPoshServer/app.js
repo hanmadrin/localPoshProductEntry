@@ -120,7 +120,8 @@ app.get('/nextItem', async (req, res) => {
     console.log(key)
     res.json({
         url: `https://kiddingaroundtoys.com${key}`,
-        key
+        key,
+        position: allLists[key].position
     });
 
 });
