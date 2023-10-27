@@ -7,9 +7,13 @@ const axios = require('axios');
 const formidable = require('express-formidable');
 const app = express();
 const port = 5656;
+require('dotenv').config();
 
 app.use(cors());
 app.use(formidable());
+
+const mainServer = process.env.MAINSERVER || 'http://192.168.0.100:4646';
+console.log(`main Server: ${mainServer}` )
 
 const saveJsonFile = async (filename, data)=>{
     const jsonData = JSON.stringify(data, null, 2);
@@ -77,7 +81,7 @@ const htmlToPlainText =(htmlText)=>{
     return plainText.replace(/\n/g, ' ').trim();
 }
 const downLoadItem =async(key)=>{
-    const fetchingUrl = `https://kiddingaroundtoys.com//products/${key.split('/')[4]}.js`;
+    const fetchingUrl = `https:/kiddingaroundtoys.com/products/${key.split('/')[4]}.js`;
     const response = (await axios.get(fetchingUrl)).data;
     const data = {};
     data.key = key;
@@ -96,16 +100,16 @@ const downLoadItem =async(key)=>{
     
     data.images = response.media.map(media => media.src);
 
-    removePreviousImages();
-    for(let i=0;i<data.images.length;i++){
-        const url = (new URL(data.images[i])).pathname;
+    // removePreviousImages();
+    // for(let i=0;i<data.images.length;i++){
+    //     const url = (new URL(data.images[i])).pathname;
 
-        const parts = url.split("/");
-        const fileName = parts[parts.length - 1];
-        const fileTypeParts = fileName.split('.');
-        const fileType = fileTypeParts[fileTypeParts.length-1]
-        await saveImageFromUrl(data.images[i],`./images/${i}.${fileType}`);
-    }
+    //     const parts = url.split("/");
+    //     const fileName = parts[parts.length - 1];
+    //     const fileTypeParts = fileName.split('.');
+    //     const fileType = fileTypeParts[fileTypeParts.length-1];
+    //     await saveImageFromUrl(data.images[i],`./images/${i}.${fileType}`);
+    // }
 
 
 
@@ -114,25 +118,18 @@ const downLoadItem =async(key)=>{
 app.get('/downloadCurrent', async (req, res) => {
     res.json(await downLoadItem(req.query.key))
 });
-app.get('/nextItem', async (req, res) => {
-    const allLists = readJsonFile("./allLists.json");
-    const key = Object.keys(allLists)[0];
-    console.log(key)
-    res.json({
-        url: `https://kiddingaroundtoys.com${key}`,
-        key,
-        position: allLists[key].position
-    });
+app.get('/loadItem', async (req, res) => {
 
+  res.json((await axios(`${mainServer}/loadItem?user=${req.query.key}`)).josn());
 });
-app.get('/currentDone',async (req, res) => {
-    const allLists = readJsonFile("./allLists.json");
-    const key = req.query.key;
-    delete allLists[key];
-    saveJsonFile("./allLists.json",allLists);
-    res.json({status: "deletion done"});
+app.get('/done',async (req, res) => {
+  const resposne = await axios(`${mainServer}/done?position=${req.query.position}`);
+  // console.log(await response.json())
+console.log(response)
+  // res.json(await axios(`${mainServer}/done?position=${req.query.position}`));
+});
+app.get('/skip',async (req, res) => {
+  res.json(await axios(`${mainServer}/skip?position=${req.query.position}`));
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+app.listen(port);

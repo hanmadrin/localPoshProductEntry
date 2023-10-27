@@ -1,0 +1,14 @@
+Arts & Crafts -> 147
+Books -> 88
+Building Toys -> 70
+Dolls & Accessories -> 72
+Dollhouses & Accessories -> 176
+Figurines & Playsets -> 50
+Games -> 148
+Imaginative Play -> 41
+Infant -> 44
+Novelty -> 39
+Preschool & Toddler -> 57
+Puzzles -> 43
+Science & Learning -> 60
+Stuffed Animals -> 60
