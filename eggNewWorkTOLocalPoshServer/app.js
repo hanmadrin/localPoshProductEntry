@@ -115,21 +115,37 @@ const downLoadItem =async(key)=>{
 
     return data;
 }
-app.get('/downloadCurrent', async (req, res) => {
-    res.json(await downLoadItem(req.query.key))
+
+app.post('/addItem', async (req, res) => {
+    const {data} = req.fields;
+    console.log(data)
+    const response = await axios.post(`${mainServer}/addItem`,{data},{
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    console.log(response.data)
+    res.json(response.data)
 });
 app.get('/loadItem', async (req, res) => {
-  // await axios(`${mainServer}/loadItem?user=${req.query.key}`);
-  res.json((await axios(`${mainServer}/loadItem?user=${req.query.key}`)).josn());
+    const response = await axios.get(`${mainServer}/loadItem?user=${req.query.user}`);
+    console.log(response.data);
+    res.json(response.data);
 });
 app.get('/done',async (req, res) => {
-  const resposne = await axios(`${mainServer}/done?position=${req.query.position}`);
-  // console.log(await response.json())
-console.log(response)
-  // res.json(await axios(`${mainServer}/done?position=${req.query.position}`));
+    const response = await axios.get(`${mainServer}/done?position=${req.query.position}`);
+    console.log(response.data);
+    res.json(response.data);
 });
 app.get('/skip',async (req, res) => {
-  res.json(await axios(`${mainServer}/skip?position=${req.query.position}`));
+    const response = await axios.get(`${mainServer}/skip?position=${req.query.position}`);
+    console.log(response.data);
+    res.json(response.data);
+});
+
+
+app.get('/downloadInformation', async (req, res) => {
+  res.json(await downLoadItem(req.query.key))
 });
 
 app.listen(port);
