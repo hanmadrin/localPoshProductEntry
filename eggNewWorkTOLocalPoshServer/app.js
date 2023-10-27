@@ -119,7 +119,7 @@ app.get('/downloadCurrent', async (req, res) => {
     res.json(await downLoadItem(req.query.key))
 });
 app.get('/loadItem', async (req, res) => {
-
+  // await axios(`${mainServer}/loadItem?user=${req.query.key}`);
   res.json((await axios(`${mainServer}/loadItem?user=${req.query.key}`)).josn());
 });
 app.get('/done',async (req, res) => {
